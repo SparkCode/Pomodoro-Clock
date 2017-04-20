@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/customScripts.js"></script>
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="jumbotron">
+        <h1>The Pomodoro Clock</h1>
+<hr>
+        <div class="alert alert-success alert-dismissible">
+            <button class="close" data-dismiss="alert">&times;</button>
+            <strong>Well done!</strong> Session is done. Have free time.
+        </div>
+        <div class="alert alert-info alert-dismissible">
+            <button class="close" data-dismiss="alert">&times;</button>
+            <strong>Move it!</strong> Session is started. Have fun.
+        </div>
+        <div class="alert alert-warning alert-dismissible">
+            <button class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> Timer is stopped.
+        </div>
+        <div class="row" >
+            <div class="col-md-5" id="session-configuration">
+                <h4>Amount of session time</h4>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <a class="btn btn-default" type="button" id="session-incrementer">+</a>
+                    </span>
+                    <input class="form-control" value="30" id="session-time-amount">
+                    <span class="input-group-addon">
+                        <a class="btn btn-default" type="button" id="session-decrementer">-</a>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-5" id="break-configuration">
+                <h4>Amount of break time</h4>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <a class="btn btn-default" type="button" id="break-incrementer">+</a>
+                    </span>
+                    <input class="form-control" value="5" id="break-time-amount">
+                    <span class="input-group-addon">
+                        <a class="btn btn-default" type="button" id="break-decrementer">-</a>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-success" type="button" id="pomodoro-starter">Let's go</a>
+            </div>
+        </div>
+        <hr>
+        <div class="row" id="timer-block">
+            <div class="progress">
+                <div class="progress-bar" style="width: 60%"></div>
+            </div>
+            <div>Session</div>
+            <div>00:30:30</div>
+            <div class="btn-group">
+                <a type="button" class="btn btn-default">start or pause</a>
+                <a type="button" class="btn btn-default">refresh or stop</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
