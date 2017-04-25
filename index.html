@@ -14,19 +14,14 @@
 <div class="container-fluid">
     <div class="jumbotron">
         <h1>The Pomodoro Clock</h1>
-<hr>
-        <div class="alert alert-success alert-dismissible">
-            <button class="close" data-dismiss="alert">&times;</button>
-            <strong>Well done!</strong> Session is done. Have free time.
+        <hr>
+
+        <div id="alert-place">
+            <div class="alert alert-info alert-dismissible">
+                <strong>Hiya!</strong> To start to do smth
+            </div>
         </div>
-        <div class="alert alert-info alert-dismissible">
-            <button class="close" data-dismiss="alert">&times;</button>
-            <strong>Move it!</strong> Session is started. Have fun.
-        </div>
-        <div class="alert alert-warning alert-dismissible">
-            <button class="close" data-dismiss="alert">&times;</button>
-            <strong>Warning!</strong> Timer is stopped.
-        </div>
+
         <div class="row" >
             <div class="col-md-5" id="session-configuration">
                 <h4>Amount of session time</h4>
@@ -61,14 +56,30 @@
             <div class="progress">
                 <div class="progress-bar" style="width: 60%"></div>
             </div>
-            <div>Session</div>
-            <div>00:30:30</div>
+            <div id="alarm-name">Session</div>
+            <div id="alarm-duration">00:30:30</div>
             <div class="btn-group">
                 <a type="button" class="btn btn-default">start or pause</a>
                 <a type="button" class="btn btn-default">refresh or stop</a>
             </div>
 
         </div>
+    </div>
+</div>
+
+<div id="alert-templates">
+    <div class="alert alert-success" data-type="done-session-alert">
+        <strong>Well done!</strong> Session is done. Have free time.
+    </div>
+    <div class="alert alert-info" data-type="started-session-alert">
+        <strong>Move it!</strong> Session is started. Have fun.
+    </div>
+    <div class="alert alert-warning" data-type="stopped-timer-alert">
+        <strong>Warning!</strong> Timer is stopped.
+    </div>
+
+    <div class="alert alert-danger" data-type="error-alert">
+        <strong>Smth went wrong!</strong>
     </div>
 </div>
 </body>
