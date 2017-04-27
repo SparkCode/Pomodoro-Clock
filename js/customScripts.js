@@ -2,6 +2,16 @@ $(document).ready(init);
 
 'use strict';
 
+let timerBlock = {
+    init: function () {
+        this.element = $("#timer-block")[0];
+    },
+
+    setVisible : function () {
+        this.element.style.visibility = "visible";
+    }
+};
+
 let configurateButton = {
     init : function () {
         let element = this.findElement();
@@ -21,6 +31,7 @@ let configurateButton = {
         let breakAlarm = new Alarm(_break.getValue() * 1000 * 60, "Break");
         pomodoroWorker.init(sessionAlarm, breakAlarm);
         pomodoroWorker.prepare();
+        timerBlock.setVisible();
     }
 };
 
@@ -63,7 +74,10 @@ let pomodoroWorker = {
     },
 
     resume: function () {
-        notification.setNotification(Notification.SESSION_STARTED);
+        if (this.state === pomodoroWorker.SESSION)
+            notification.setNotification(Notification.SESSION_STARTED);
+        else
+            notification.setNotification(Notification.SESSION_DONE);
         this.start();
     },
 
@@ -189,7 +203,7 @@ Alarm.prototype.setAlarm = function (finishFunction, setUpdaterFunction, setUpda
         this.isStarted = false;
         finishFunction();
     }, this.remainingDuration);
-
+    setUpdaterFunction();
     this.updaterFunctionId = setInterval(setUpdaterFunction, setUpdaterFunctionDuration);
 };
 
@@ -225,6 +239,7 @@ function ValidatedTimer(element, min, max, _default) {
     this.min = min;
     this.max = max;
     this.default = _default;
+    this.validateValueLength();
 }
 
 ValidatedTimer.prototype = Object.create(Timer.prototype);
@@ -233,6 +248,7 @@ ValidatedTimer.prototype.constructor = ValidatedTimer;
 ValidatedTimer.prototype.setValue = function (value) {
     this.validateValue(value);
     this.setElementValue(value);
+
 };
 
 ValidatedTimer.prototype.changeValue = function (diff) {
@@ -244,6 +260,13 @@ ValidatedTimer.prototype.getValue = function () {
     let value = +this.getElementValue();
     this.validateValue(value);
     return value;
+};
+
+ValidatedTimer.prototype.validateValueLength = function () {
+    this.element.onkeyup = () => {
+        let val = this.getElementValue();
+        val.length > 2 && this.setElementValue(val.slice(0, 2));
+    }
 };
 
 ValidatedTimer.prototype.validateValue = function (value) {
@@ -298,6 +321,7 @@ let notification;
 
 
 function init() {
+    timerBlock.init();
     configurateButton.init();
     progressBar.init();
     alarmNameLabel.init();

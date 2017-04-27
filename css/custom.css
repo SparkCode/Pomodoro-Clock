@@ -1,5 +1,5 @@
 .jumbotron {
-    max-width: 800px;
+    max-width: 750px;
     margin: 60px auto;
 
 }
@@ -8,13 +8,12 @@ h1 {
     text-align: center;
 }
 
-h4 {
-    text-align: center;
-}
-
-
 #alert-templates {
     visibility: hidden;
+}
+
+#pomodoro-starter {
+    margin-top: 15px;
 }
 
 .progress-bar-text {
@@ -28,29 +27,23 @@ h4 {
     margin: auto 0;
 }
 
-.col-md-10 {
+.col-md-10, .col-sm-4, .col-xs-12, .col-sm-6, .col-xs-7, .col-xs-5, .col-xs-3, .col-xs-3, .col-xs-9, .col-sm-10 {
     padding-left: 0;
     padding-right: 0;
 }
 
-.col-xs-5 {
+.col-xs-5, .col-xs-10, .col-xs-2 {
     padding-left: 0;
 }
 
-#session-configuration {
-    /*padding: 0 30px;*/
-    width: 220px;
+.adjuster {
+    max-width: 110px;
 }
 
-#break-configuration {
-    /*padding: 0 30px;*/
-    width: 220px;
+#pomodoro-settings-block h2 {
+    margin-top: 0;
 }
 
-.col-xs-10 {
-    padding-left: 0;
-}
-
-.col-xs-2 {
-    padding-left: 0;
+#timer-block {
+    visibility: hidden;
 }

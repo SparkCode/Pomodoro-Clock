@@ -13,43 +13,53 @@
 <body>
 <div class="container-fluid">
     <div class="jumbotron">
-        <h1>The Pomodoro Clock</h1>
+        <h1 style="font-size: 40px">The Pomodoro Clock</h1>
         <hr>
 
         <div id="alert-place">
             <div class="alert alert-info alert-dismissible">
-                <strong>Hiya!</strong> To start to do smth
+                <strong>Hiya!</strong> To start with just to do smth
             </div>
         </div>
 
-        <div class="row" >
-            <div class="col-xs-5" id="session-configuration">
-                <h4 >Session time minutes</h4>
-                <div class="input-group">
-                    <span class="input-group-btn">
-                        <a class="btn btn-default" type="button" id="session-incrementer">+</a>
-                    </span>
-                    <input class="form-control" value="30" id="session-time-amount">
-                    <span class="input-group-btn">
-                        <a class="btn btn-default" type="button" id="session-decrementer">-</a>
-                    </span>
+        <div class="row" id="pomodoro-settings-block">
+            <h2>Pomodoro settings</h2>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6" id="session-configuration">
+                        <div class="col-xs-7">
+                            <h4 >Set session minutes</h4>
+                        </div>
+                        <div class="col-xs-5">
+                            <div class="input-group adjuster" >
+                                <span class="input-group-btn">
+                                    <a class="btn btn-default" type="button" id="session-incrementer">+</a>
+                                </span>
+                                <input class="form-control" value="30" id="session-time-amount">
+                                <span class="input-group-btn">
+                                    <a class="btn btn-default" type="button" id="session-decrementer">-</a>
+                                </span>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-xs-12  col-sm-6" id="break-configuration">
+                        <div class="col-xs-7">
+                            <h4>Set break minutes</h4>
+                        </div>
+                        <div class="col-xs-5">
+                            <div class="input-group adjuster">
+                                <span class="input-group-btn">
+                                    <a class="btn btn-default" type="button" id="break-incrementer">+</a>
+                                </span>
+                                <input class="form-control" value="5" id="break-time-amount">
+                                <span class="input-group-btn">
+                                    <a class="btn btn-default" type="button" id="break-decrementer">-</a>
+                                </span>
+                            </div>
+                        </div>
                 </div>
             </div>
-            <div class="col-xs-5" id="break-configuration">
-                <h4>Break time minutes</h4>
-                <div class="input-group">
-                    <span class="input-group-btn">
-                        <a class="btn btn-default" type="button" id="break-incrementer">+</a>
-                    </span>
-                    <input class="form-control" value="5" id="break-time-amount">
-                    <span class="input-group-btn">
-                        <a class="btn btn-default" type="button" id="break-decrementer">-</a>
-                    </span>
-                </div>
-            </div>
-            <div class="col-xs-2">
-                <h4 style="visibility: hidden">B</h4>
-                <a class="btn btn-success" type="button" id="pomodoro-starter">Let's go</a>
+            <div class="row">
+                <a  class="btn btn-success text-right" type="button" id="pomodoro-starter">Let's go</a>
             </div>
         </div>
         <hr>
@@ -60,14 +70,14 @@
             <h3 id="alarm-duration" style=" display: inline-block;">00:30:30</h3>
 
             <div class="row text-center">
-                <div class="col-xs-10">
+                <div class="col-xs-9 col-sm-10">
                     <div class="progress" style=" height: 30px;">
-                        <p class="progress-bar-text" >Remain: <span id="remaining-time">00:30:30</span></p>
-                        <div class="progress-bar" style="width: 60%; height: 30px;"></div>
+                        <p class="progress-bar-text" >Remaining: <span id="remaining-time">00:30:30</span></p>
+                        <div class="progress-bar" style="width: 0%; height: 30px;"></div>
                     </div>
                 </div>
 
-                <div class="col-xs-2">
+                <div class="col-xs-3 col-sm-2">
                     <a type="button" class="btn btn-default" id="pause-or-start-button">PAUSE</a>
                 </div>
             </div>
