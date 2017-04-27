@@ -5,6 +5,11 @@ $(document).ready(init);
 let timerBlock = {
     init: function () {
         this.element = $("#timer-block")[0];
+        this.progressBar.init();
+        this.alarmNameLabel.init();
+        this.alarmDurationLabel.init();
+        this.remainingTimeLabel.init();
+        this.pauseOrStartButton.init();
     },
 
     setVisible : function () {
@@ -12,37 +17,14 @@ let timerBlock = {
     }
 };
 
-let configurateButton = {
-    init : function () {
-        let element = this.findElement();
-        this.addHandler(element);
-    },
-
-    findElement: function () {
-        return $("#pomodoro-starter")[0];
-    },
-
-    addHandler: function (element) {
-        this.findElement().onclick = this.handleButtonClick;
-    },
-
-    handleButtonClick: function () {
-        let sessionAlarm = new Alarm(session.getValue() * 1000 * 60, "Session");
-        let breakAlarm = new Alarm(_break.getValue() * 1000 * 60, "Break");
-        pomodoroWorker.init(sessionAlarm, breakAlarm);
-        pomodoroWorker.prepare();
-        timerBlock.setVisible();
-    }
-};
-
-let pomodoroWorker = {
+timerBlock.pomodoroWorker = { //todo вынести отсюда?
     init: function (sessionAlarm, breakAlarm) {
         !this.sessionAlarm || this.sessionAlarm.stop();
         !this.breakAlarm || this.breakAlarm.stop();
 
         this.sessionAlarm = sessionAlarm;
         this.breakAlarm = breakAlarm;
-        this.state = pomodoroWorker.BREAK;
+        this.state = this.BREAK;
     },
 
     start: function () { //todo - rename
@@ -50,55 +32,54 @@ let pomodoroWorker = {
     },
 
     prepare: function () { //todo - rename
-        pauseOrStartButton.state = pauseOrStartButton.WORKING;
+        timerBlock.pauseOrStartButton.state = timerBlock.pauseOrStartButton.WORKING; //todo это точно должно быть здесь?
 
-        if (this.state === pomodoroWorker.SESSION)
+        if (this.state === this.SESSION)
         {
-            notification.setNotification(Notification.SESSION_DONE);
-            this.state = pomodoroWorker.BREAK;
+            notificationBlock.alertPlace.setNotification(notificationBlock.SESSION_DONE_ALERT);
+            this.state = this.BREAK;
         }
         else
         {
-            notification.setNotification(Notification.SESSION_STARTED);
-            this.state = pomodoroWorker.SESSION;
+            debugger;
+            notificationBlock.alertPlace.setNotification(notificationBlock.SESSION_STARTED_ALERT);
+            this.state = this.SESSION;
         }
 
-        alarmNameLabel.setValue(this.getCurrentAlarm().name);
-        alarmDurationLabel.setValue(this.getCurrentAlarm().overallDuration);
+        timerBlock.alarmNameLabel.setValue(this.getCurrentAlarm().name);
+        timerBlock.alarmDurationLabel.setValue(this.getCurrentAlarm().overallDuration);
         this.start();
     },
 
     pause: function () {
         this.getCurrentAlarm().pauseAlarm();
-        notification.setNotification(Notification.TIMER_STOPPED);
+        notificationBlock.alertPlace.setNotification(notificationBlock.TIMER_STOPPED_ALERT);
     },
 
     resume: function () {
-        if (this.state === pomodoroWorker.SESSION)
-            notification.setNotification(Notification.SESSION_STARTED);
+        if (this.state === this.SESSION)
+            notificationBlock.alertPlace.setNotification(notificationBlock.SESSION_STARTED_ALERT);
         else
-            notification.setNotification(Notification.SESSION_DONE);
+            notificationBlock.alertPlace.setNotification(notificationBlock.SESSION_DONE_ALERT);
         this.start();
     },
 
     updaterHandler: function () {
         let alarm = this.getCurrentAlarm();
         let percentage = 100 - alarm.getRemaining()* 100 / alarm.overallDuration;
-        progressBar.setValue(percentage);
-        remainingTimeLabel.setValue(alarm.startTime.getTime()  + alarm.remainingDuration - new Date().getTime());
+        timerBlock.progressBar.setValue(percentage);
+        timerBlock.remainingTimeLabel.setValue(alarm.startTime.getTime()  + alarm.remainingDuration - new Date().getTime());
     },
 
     getCurrentAlarm : function () {
-        return this.state ===  pomodoroWorker.SESSION ? this.sessionAlarm : this.breakAlarm;
-    }
+        return this.state ===  this.SESSION ? this.sessionAlarm : this.breakAlarm;
+    },
+
+    BREAK: 1,
+    SESSION: 2
 };
 
-pomodoroWorker.BREAK = 1;
-pomodoroWorker.SESSION = 2;
-
-
-
-let progressBar = {
+timerBlock.progressBar = {
     init : function () {
         this.element = $(".progress-bar")[0];
     },
@@ -108,7 +89,7 @@ let progressBar = {
     }
 };
 
-let alarmNameLabel = {
+timerBlock.alarmNameLabel = {
     init : function () {
         this.element = $("#alarm-name")[0];
     },
@@ -118,7 +99,7 @@ let alarmNameLabel = {
     }
 };
 
-let alarmDurationLabel = {
+timerBlock.alarmDurationLabel = {
     init: function () {
         this.element = $("#alarm-duration")[0];
     },
@@ -128,7 +109,7 @@ let alarmDurationLabel = {
     }
 };
 
-let remainingTimeLabel = {
+timerBlock.remainingTimeLabel = {
     init: function () {
         this.element = $("#remaining-time")[0];
     },
@@ -138,10 +119,10 @@ let remainingTimeLabel = {
     }
 };
 
-let pauseOrStartButton = {
+timerBlock.pauseOrStartButton = {
     init: function () {
         this.element = $("#pause-or-start-button")[0];
-        this.state = pauseOrStartButton.PAUSE;
+        this.state = this.PAUSE;
         this.setHandle();
     },
 
@@ -150,11 +131,11 @@ let pauseOrStartButton = {
     },
 
     onPause: function () {
-        pomodoroWorker.resume();
+        timerBlock.pomodoroWorker.resume();
     },
 
     onWorking: function () {
-        pomodoroWorker.pause();
+        timerBlock.pomodoroWorker.pause();
     },
 
     setName: function (value) {
@@ -162,26 +143,26 @@ let pauseOrStartButton = {
     },
 
     changeState: function () {
-        this.state = this.state === pauseOrStartButton.PAUSE ? pauseOrStartButton.WORKING : pauseOrStartButton.PAUSE;
+        this.state = this.state === this.PAUSE ? this.WORKING : this.PAUSE;
     },
 
     onclick: function () {
         debugger;
-        if (this.state === pauseOrStartButton.PAUSE)
+        if (this.state === this.PAUSE)
             this.onPause();
         else
             this.onWorking();
         this.changeState();
 
-        if (this.state === pauseOrStartButton.PAUSE)
+        if (this.state === this.PAUSE)
             this.setName("RESTART");
         else
             this.setName("PAUSE");
-    }
-};
+    },
 
-pauseOrStartButton.PAUSE = 1;
-pauseOrStartButton.WORKING = 2;
+    PAUSE: 1,
+    WORKING: 2
+};
 
 function Alarm(duration, name) {
     this.overallDuration = duration;
@@ -222,8 +203,52 @@ Alarm.prototype.stop = function () {
 };
 
 
-function Timer(element) {
+let pomodoroSettingsBlock = {
+    init: function () {
+        this.configurateButton.init();
+
+        let sessionElement = $("#session-time-amount")[0];
+        let breakElement = $("#break-time-amount")[0];
+        this.session = new ValidatedTimer(sessionElement, "Session", 1, 99, 30);
+        this._break = new ValidatedTimer(breakElement, "Break", 1, 99, 5);
+
+        pomodoroSettingsBlock.setChangerButton($("#session-incrementer")[0], this.session, +1);
+        pomodoroSettingsBlock.setChangerButton($("#session-decrementer")[0], this.session, -1);
+        pomodoroSettingsBlock.setChangerButton($("#break-incrementer")[0], this._break, +1);
+        pomodoroSettingsBlock.setChangerButton($("#break-decrementer")[0], this._break, -1);
+    },
+
+    setChangerButton: function (element, timer, diff) {
+        element.onclick = timer.changeValue.bind(timer, diff);
+    }
+};
+
+pomodoroSettingsBlock.configurateButton = {
+    init : function () {
+        let element = this.findElement();
+        this.addHandler(element);
+    },
+
+    findElement: function () {
+        return $("#pomodoro-starter")[0];
+    },
+
+    addHandler: function () {
+        this.findElement().onclick = this.handleButtonClick;
+    },
+
+    handleButtonClick: function () {
+        let sessionAlarm = new Alarm(pomodoroSettingsBlock.session.getValue() * 1000 * 60, pomodoroSettingsBlock.session.name);
+        let breakAlarm = new Alarm(pomodoroSettingsBlock._break.getValue() * 1000 * 60, pomodoroSettingsBlock._break.name);
+        timerBlock.pomodoroWorker.init(sessionAlarm, breakAlarm);
+        timerBlock.pomodoroWorker.prepare();
+        timerBlock.setVisible();
+    }
+};
+
+function Timer(element, name) {
     this.element = element;
+    this.name = name;
 }
 
 Timer.prototype.getElementValue = function (){
@@ -234,7 +259,7 @@ Timer.prototype.setElementValue = function (value) {
     $(this.element).val(value);
 };
 
-function ValidatedTimer(element, min, max, _default) {
+function ValidatedTimer(element, name, min, max, _default) {
     Timer.apply(this, arguments);
     this.min = min;
     this.max = max;
@@ -275,13 +300,10 @@ ValidatedTimer.prototype.validateValue = function (value) {
     if (!isValid)
     {
         this.setElementValue(this.default);
-        throw new UserError("Number should be more than " + this.min + " and less than " + this.max);
+        throw new UserError("The " + this.name + " should be a number between " + this.min + " and " + this.max);
     }
 };
 
-function setChangerButton(element, timer, diff) {
-    element.onclick = timer.changeValue.bind(timer, diff);
-}
 
 function UserError(message = 'Default Message') {
     this.name = "UserError";
@@ -292,72 +314,42 @@ function UserError(message = 'Default Message') {
 UserError.prototype = Object.create(Error.prototype);
 UserError.prototype.constructor = UserError;
 
-function Notification(elementStateMap, alertPlaceElement) {
-    this.elementStateMap = elementStateMap;
-    this.alertPlaceElement = alertPlaceElement;
-}
-
-Notification.prototype.setNotification = function (state) {
-    this._closeAllNotification();
-    this.alertPlaceElement.appendChild(this.elementStateMap[state]);
-
+let notificationBlock = {
+    init: function () {
+        this.alertPlace.init();
+        this.SESSION_DONE_ALERT = this._getNotification("done-session-alert");
+        this.SESSION_STARTED_ALERT = this._getNotification("started-session-alert");
+        this.TIMER_STOPPED_ALERT = this._getNotification("stopped-timer-alert");
+        this.USER_ERROR_HAPPENED_ALERT = this._getNotification("error-alert");
+    },
+    
+    _getNotification: function (stateType) {
+        return $(`div[data-type=\'${stateType}\']`)[0];
+    },
 };
 
-Notification.prototype._closeAllNotification = function () {
-    this.alertPlaceElement.innerHTML = "";
+notificationBlock.alertPlace = {
+    init: function () {
+        this.element = $("#alert-place")[0];
+    },
+
+    setNotification: function (element, text) {
+        text && (element.innerHTML = text);
+        this.element.innerHTML = "";
+        this.element.appendChild(element);
+    }
 };
-
-Notification.SESSION_DONE = 1;
-Notification.SESSION_STARTED = 2;
-Notification.TIMER_STOPPED = 3;
-Notification.USER_ERROR_HAPPENED = 4;
-
-let session;
-let _break;
-let notification;
-
-
-
-
 
 function init() {
     timerBlock.init();
-    configurateButton.init();
-    progressBar.init();
-    alarmNameLabel.init();
-    alarmDurationLabel.init();
-    remainingTimeLabel.init();
-    pauseOrStartButton.init();
+    pomodoroSettingsBlock.init();
+    notificationBlock.init();
 
-    let sessionElement = document.getElementById("session-time-amount");
-    let breakElement = document.getElementById("break-time-amount");
-    session = new ValidatedTimer(sessionElement, 1, 99, 30);
-    _break = new ValidatedTimer(breakElement, 1, 99, 5);
-
-    setChangerButton($("#session-incrementer")[0], session, +1);
-    setChangerButton($("#session-decrementer")[0], session, -1);
-    setChangerButton($("#break-incrementer")[0], _break, +1);
-    setChangerButton($("#break-decrementer")[0], _break, -1);
-
-    let typeStateMap = {};
-    typeStateMap[Notification.SESSION_DONE] = "done-session-alert";
-    typeStateMap[Notification.SESSION_STARTED] = "started-session-alert";
-    typeStateMap[Notification.TIMER_STOPPED] = "stopped-timer-alert";
-    typeStateMap[Notification.USER_ERROR_HAPPENED] = "error-alert";
-
-
-    let elementStateMap = Object.keys(typeStateMap)
-        .map(function (type) {
-        let el = $(`div[data-type=\'${typeStateMap[type]}\']`)[0];
-        return [type, el];
-    })
-        .reduce(function (acc, curr) {
-            acc[curr[0]] = curr[1];
-            return acc;
-    }, {});
-
-    notification = new Notification(elementStateMap, $("#alert-place")[0]);
+    window.onerror = function (msg, url, lineNo, columnNo, error) {
+        notificationBlock.alertPlace.setNotification(notificationBlock.USER_ERROR_HAPPENED_ALERT, error.message);
+    }
 }
+
 
 
 
