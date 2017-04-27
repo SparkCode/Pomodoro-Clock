@@ -23,47 +23,59 @@
         </div>
 
         <div class="row" >
-            <div class="col-md-5" id="session-configuration">
-                <h4>Amount of session time</h4>
+            <div class="col-xs-5" id="session-configuration">
+                <h4 >Session time minutes</h4>
                 <div class="input-group">
-                    <span class="input-group-addon">
+                    <span class="input-group-btn">
                         <a class="btn btn-default" type="button" id="session-incrementer">+</a>
                     </span>
                     <input class="form-control" value="30" id="session-time-amount">
-                    <span class="input-group-addon">
+                    <span class="input-group-btn">
                         <a class="btn btn-default" type="button" id="session-decrementer">-</a>
                     </span>
                 </div>
             </div>
-            <div class="col-md-5" id="break-configuration">
-                <h4>Amount of break time</h4>
+            <div class="col-xs-5" id="break-configuration">
+                <h4>Break time minutes</h4>
                 <div class="input-group">
-                    <span class="input-group-addon">
+                    <span class="input-group-btn">
                         <a class="btn btn-default" type="button" id="break-incrementer">+</a>
                     </span>
                     <input class="form-control" value="5" id="break-time-amount">
-                    <span class="input-group-addon">
+                    <span class="input-group-btn">
                         <a class="btn btn-default" type="button" id="break-decrementer">-</a>
                     </span>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-xs-2">
+                <h4 style="visibility: hidden">B</h4>
                 <a class="btn btn-success" type="button" id="pomodoro-starter">Let's go</a>
             </div>
         </div>
         <hr>
         <div class="row" id="timer-block">
-            <div class="progress">
-                <div class="progress-bar" style="width: 60%"></div>
-            </div>
-            <div id="alarm-name">Session</div>
-            <div id="alarm-duration">00:30:30</div>
-            <div class="btn-group">
-                <a type="button" class="btn btn-default">start or pause</a>
-                <a type="button" class="btn btn-default">refresh or stop</a>
-            </div>
 
+            <h2 id="alarm-name" style=" display: inline-block;">Session</h2>
+
+            <h3 id="alarm-duration" style=" display: inline-block;">00:30:30</h3>
+
+            <div class="row text-center">
+                <div class="col-xs-10">
+                    <div class="progress" style=" height: 30px;">
+                        <p class="progress-bar-text" >Remain: <span id="remaining-time">00:30:30</span></p>
+                        <div class="progress-bar" style="width: 60%; height: 30px;"></div>
+                    </div>
+                </div>
+
+                <div class="col-xs-2">
+                    <a type="button" class="btn btn-default" id="pause-or-start-button">PAUSE</a>
+                </div>
+            </div>
         </div>
+
+
+
+
     </div>
 </div>
 

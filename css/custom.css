@@ -4,10 +4,6 @@
 
 }
 
-#timer-block {
-    text-align: center;
-}
-
 h1 {
     text-align: center;
 }
@@ -19,4 +15,42 @@ h4 {
 
 #alert-templates {
     visibility: hidden;
+}
+
+.progress-bar-text {
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.row {
+    margin: auto 0;
+}
+
+.col-md-10 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.col-xs-5 {
+    padding-left: 0;
+}
+
+#session-configuration {
+    /*padding: 0 30px;*/
+    width: 220px;
+}
+
+#break-configuration {
+    /*padding: 0 30px;*/
+    width: 220px;
+}
+
+.col-xs-10 {
+    padding-left: 0;
+}
+
+.col-xs-2 {
+    padding-left: 0;
 }
