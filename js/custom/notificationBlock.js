@@ -10,7 +10,9 @@ let notificationBlock = {
     },
 
     _getNotification(stateType) {
-        return $(`div[data-type=\'${stateType}\']`)[0];
+        let element = $(`div[data-type=\'${stateType}\']`)[0];
+        element.setAttribute("data-default-text", element.innerHTML);
+        return element;
     },
 };
 
@@ -20,7 +22,8 @@ notificationBlock.alertPlace = {
     },
 
     setNotification(element, text) {
-        text && (element.innerHTML = text);
+        debugger;
+        element.innerHTML = text ? text : element.getAttribute("data-default-text");
         this.element.innerHTML = "";
         this.element.appendChild(element);
     }

@@ -17,19 +17,19 @@ let timerBlock = {
 
 timerBlock.pomodoroWorker = { //todo вынести отсюда?
     init(sessionAlarm, breakAlarm) {
-        !this.sessionAlarm || this.sessionAlarm.stop();
-        !this.breakAlarm || this.breakAlarm.stop();
+        !this.sessionAlarm || this.sessionAlarm.setInitialPosition();
+        !this.breakAlarm || this.breakAlarm.setInitialPosition();
 
         this.sessionAlarm = sessionAlarm;
         this.breakAlarm = breakAlarm;
         this.state = this.BREAK;
     },
 
-    start() { //todo - rename
-        this.getCurrentAlarm().setAlarm(this.prepare.bind(this), this.updaterHandler.bind(this), 1000);
+    _startOrResumeTimer() {
+        this.getCurrentAlarm().setAlarm(this.start.bind(this), this.updaterHandler.bind(this), 1000);
     },
 
-    prepare() { //todo - rename
+    start() {
         timerBlock.pauseOrStartButton.state = timerBlock.pauseOrStartButton.WORKING;
 
         if (this.state === this.SESSION)
@@ -39,14 +39,13 @@ timerBlock.pomodoroWorker = { //todo вынести отсюда?
         }
         else
         {
-            debugger;
             notificationBlock.alertPlace.setNotification(notificationBlock.SESSION_STARTED_ALERT);
             this.state = this.SESSION;
         }
 
         timerBlock.alarmNameLabel.setValue(this.getCurrentAlarm().name);
         timerBlock.alarmDurationLabel.setValue(this.getCurrentAlarm().overallDuration);
-        this.start();
+        this._startOrResumeTimer();
     },
 
     pause() {
@@ -59,7 +58,7 @@ timerBlock.pomodoroWorker = { //todo вынести отсюда?
             notificationBlock.alertPlace.setNotification(notificationBlock.SESSION_STARTED_ALERT);
         else
             notificationBlock.alertPlace.setNotification(notificationBlock.SESSION_DONE_ALERT);
-        this.start();
+        this._startOrResumeTimer();
     },
 
     updaterHandler() {
@@ -145,17 +144,19 @@ timerBlock.pauseOrStartButton = {
     },
 
     onclick: function () {
-        debugger;
         if (this.state === this.PAUSE)
+        {
             this.onPause();
-        else
-            this.onWorking();
-        this.changeState();
-
-        if (this.state === this.PAUSE)
-            this.setName("RESTART");
-        else
             this.setName("PAUSE");
+        }
+
+        else
+        {
+            this.onWorking();
+            this.setName("RESTART");
+        }
+
+        this.changeState();
     },
 
     PAUSE: 1,

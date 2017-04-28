@@ -4,8 +4,13 @@
 
 }
 
+.inline {
+    display: inline-block;
+}
+
 h1 {
     text-align: center;
+    font-size: 40px;
 }
 
 #alert-templates {
@@ -23,6 +28,22 @@ h1 {
     right: 0;
 }
 
+.adjuster {
+    max-width: 110px;
+}
+
+#pomodoro-settings-block h2 {
+    margin-top: 0;
+}
+
+#timer-block {
+    visibility: hidden;
+}
+
+.progress, .progress-bar {
+    height: 30px;
+}
+
 .row {
     margin: auto 0;
 }
@@ -34,16 +55,4 @@ h1 {
 
 .col-xs-5, .col-xs-10, .col-xs-2 {
     padding-left: 0;
-}
-
-.adjuster {
-    max-width: 110px;
-}
-
-#pomodoro-settings-block h2 {
-    margin-top: 0;
-}
-
-#timer-block {
-    visibility: hidden;
 }

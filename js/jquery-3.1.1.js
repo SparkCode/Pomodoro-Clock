@@ -118,7 +118,7 @@ jQuery.fn = jQuery.prototype = {
 
 	constructor: jQuery,
 
-	// The default length of a jQuery object is 0
+	// The defaultValue length of a jQuery object is 0
 	length: 0,
 
 	toArray: function() {
@@ -931,7 +931,7 @@ function assert( fn ) {
 	} catch (e) {
 		return false;
 	} finally {
-		// Remove from its parent by default
+		// Remove from its parent by defaultValue
 		if ( el.parentNode ) {
 			el.parentNode.removeChild( el );
 		}
@@ -1857,7 +1857,7 @@ Expr = Sizzle.selectors = {
 
 							while ( (node = ++nodeIndex && node && node[ dir ] ||
 
-								// Fallback to seeking `elem` from the start
+								// Fallback to seeking `elem` from the _startOrResumeTimer
 								(diff = nodeIndex = 0) || start.pop()) ) {
 
 								// When found, cache indexes on `parent` and break
@@ -1887,7 +1887,7 @@ Expr = Sizzle.selectors = {
 							// xml :nth-child(...)
 							// or :nth-last-child(...) or :nth(-last)?-of-type(...)
 							if ( diff === false ) {
-								// Use the same loop as above to seek `elem` from the start
+								// Use the same loop as above to seek `elem` from the _startOrResumeTimer
 								while ( (node = ++nodeIndex && node && node[ dir ] ||
 									(diff = nodeIndex = 0) || start.pop()) ) {
 
@@ -2060,7 +2060,7 @@ Expr = Sizzle.selectors = {
 		},
 
 		"selected": function( elem ) {
-			// Accessing this property makes selected-by-default
+			// Accessing this property makes selected-by-defaultValue
 			// options in Safari work properly
 			if ( elem.parentNode ) {
 				elem.parentNode.selectedIndex;
@@ -2738,7 +2738,7 @@ support.sortStable = expando.split("").sort( sortOrder ).join("") === expando;
 // Always assume duplicates if they aren't passed to the comparison function
 support.detectDuplicates = !!hasDuplicate;
 
-// Initialize against the default document
+// Initialize against the defaultValue document
 setDocument();
 
 // Support: Webkit<537.32 - Safari 6.0.3/Chrome 25 (fixed in Chrome 27)
@@ -2952,7 +2952,7 @@ var rootjQuery,
 
 	// A simple way to check for HTML strings
 	// Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
-	// Strict HTML recognition (#11290: must start with <)
+	// Strict HTML recognition (#11290: must _startOrResumeTimer with <)
 	// Shortcut simple #id case for speed
 	rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/,
 
@@ -2974,7 +2974,7 @@ var rootjQuery,
 				selector[ selector.length - 1 ] === ">" &&
 				selector.length >= 3 ) {
 
-				// Assume that strings that start and end with <> are HTML and skip the regex check
+				// Assume that strings that _startOrResumeTimer and end with <> are HTML and skip the regex check
 				match = [ null, selector, null ];
 
 			} else {
@@ -3243,7 +3243,7 @@ function createOptions( options ) {
  *	options: an optional list of space-separated options that will change how
  *			the callback list behaves or a more traditional option object
  *
- * By default a callback list will act like an event callback list and can be
+ * By defaultValue a callback list will act like an event callback list and can be
  * "fired" multiple times.
  *
  * Possible options:
@@ -3835,7 +3835,7 @@ jQuery.extend( {
 
 
 // These usually indicate a programmer mistake during development,
-// warn about them ASAP rather than swallowing them by default.
+// warn about them ASAP rather than swallowing them by defaultValue.
 var rerrorNames = /^(Eval|Internal|Range|Reference|Syntax|Type|URI)Error$/;
 
 jQuery.Deferred.exceptionHook = function( error, stack ) {
@@ -4391,7 +4391,7 @@ jQuery.extend( {
 				queue.unshift( "inprogress" );
 			}
 
-			// Clear up the last queue stop function
+			// Clear up the last queue _stop function
 			delete hooks.stop;
 			fn.call( elem, next, hooks );
 		}
@@ -4449,7 +4449,7 @@ jQuery.fn.extend( {
 	},
 
 	// Get a promise resolved when queues of a certain type
-	// are emptied (fx is the type by default)
+	// are emptied (fx is the type by defaultValue)
 	promise: function( type, obj ) {
 		var tmp,
 			count = 1,
@@ -4583,7 +4583,7 @@ function adjustCSS( elem, prop, valueParts, tween ) {
 			+valueParts[ 2 ];
 		if ( tween ) {
 			tween.unit = unit;
-			tween.start = initialInUnit;
+			tween._startOrResumeTimer = initialInUnit;
 			tween.end = adjusted;
 		}
 	}
@@ -5181,7 +5181,7 @@ jQuery.event = {
 		// Determine handlers
 		handlerQueue = jQuery.event.handlers.call( this, event, handlers );
 
-		// Run delegates first; they may want to stop propagation beneath us
+		// Run delegates first; they may want to _stop propagation beneath us
 		i = 0;
 		while ( ( matched = handlerQueue[ i++ ] ) && !event.isPropagationStopped() ) {
 			event.currentTarget = matched.elem;
@@ -5694,7 +5694,7 @@ function fixInput( src, dest ) {
 	if ( nodeName === "input" && rcheckableType.test( src.type ) ) {
 		dest.checked = src.checked;
 
-	// Fails to return the selected option to the default selected state when cloning options
+	// Fails to return the selected option to the defaultValue selected state when cloning options
 	} else if ( nodeName === "input" || nodeName === "textarea" ) {
 		dest.defaultValue = src.defaultValue;
 	}
@@ -6353,7 +6353,7 @@ function getWidthOrHeight( elem, name, extra ) {
 		valueIsBorderBox = isBorderBox &&
 			( support.boxSizingReliable() || val === elem.style[ name ] );
 
-		// Normalize "", auto, and prepare for extra
+		// Normalize "", auto, and start for extra
 		val = parseFloat( val ) || 0;
 	}
 
@@ -6371,7 +6371,7 @@ function getWidthOrHeight( elem, name, extra ) {
 
 jQuery.extend( {
 
-	// Add in style property hooks for overriding the default
+	// Add in style property hooks for overriding the defaultValue
 	// behavior of getting and setting a style property
 	cssHooks: {
 		opacity: {
@@ -6930,7 +6930,7 @@ function defaultPrefilter( elem, props, opts ) {
 				dataShow = dataPriv.access( elem, "fxshow", { display: restoreDisplay } );
 			}
 
-			// Store hidden/visible for toggle so `.stop().toggle()` "reverses"
+			// Store hidden/visible for toggle so `._stop().toggle()` "reverses"
 			if ( toggle ) {
 				dataShow.hidden = !hidden;
 			}
@@ -6960,10 +6960,10 @@ function defaultPrefilter( elem, props, opts ) {
 		// Per-property setup
 		propTween = createTween( hidden ? dataShow[ prop ] : 0, prop, anim );
 		if ( !( prop in dataShow ) ) {
-			dataShow[ prop ] = propTween.start;
+			dataShow[ prop ] = propTween._startOrResumeTimer;
 			if ( hidden ) {
-				propTween.end = propTween.start;
-				propTween.start = 0;
+				propTween.end = propTween._startOrResumeTimer;
+				propTween._startOrResumeTimer = 0;
 			}
 		}
 	}
@@ -7092,9 +7092,9 @@ function Animation( elem, properties, options ) {
 	for ( ; index < length; index++ ) {
 		result = Animation.prefilters[ index ].call( animation, elem, props, animation.opts );
 		if ( result ) {
-			if ( jQuery.isFunction( result.stop ) ) {
+			if ( jQuery.isFunction( result._stop ) ) {
 				jQuery._queueHooks( animation.elem, animation.opts.queue ).stop =
-					jQuery.proxy( result.stop, result );
+					jQuery.proxy( result._stop, result );
 			}
 			return result;
 		}
@@ -7102,8 +7102,8 @@ function Animation( elem, properties, options ) {
 
 	jQuery.map( props, createTween, animation );
 
-	if ( jQuery.isFunction( animation.opts.start ) ) {
-		animation.opts.start.call( elem, animation );
+	if ( jQuery.isFunction( animation.opts._startOrResumeTimer ) ) {
+		animation.opts._startOrResumeTimer.call( elem, animation );
 	}
 
 	jQuery.fx.timer(
@@ -7224,7 +7224,7 @@ jQuery.fn.extend( {
 
 				// Empty animations, or finishing resolves immediately
 				if ( empty || dataPriv.get( this, "finish" ) ) {
-					anim.stop( true );
+					anim._stop( true );
 				}
 			};
 			doAnimation.finish = doAnimation;
@@ -7256,12 +7256,12 @@ jQuery.fn.extend( {
 				data = dataPriv.get( this );
 
 			if ( index ) {
-				if ( data[ index ] && data[ index ].stop ) {
+				if ( data[ index ] && data[ index ]._stop ) {
 					stopQueue( data[ index ] );
 				}
 			} else {
 				for ( index in data ) {
-					if ( data[ index ] && data[ index ].stop && rrun.test( index ) ) {
+					if ( data[ index ] && data[ index ]._stop && rrun.test( index ) ) {
 						stopQueue( data[ index ] );
 					}
 				}
@@ -7369,7 +7369,7 @@ jQuery.fx.tick = function() {
 	}
 
 	if ( !timers.length ) {
-		jQuery.fx.stop();
+		jQuery.fx._stop();
 	}
 	fxNow = undefined;
 };
@@ -7377,14 +7377,14 @@ jQuery.fx.tick = function() {
 jQuery.fx.timer = function( timer ) {
 	jQuery.timers.push( timer );
 	if ( timer() ) {
-		jQuery.fx.start();
+		jQuery.fx._startOrResumeTimer();
 	} else {
 		jQuery.timers.pop();
 	}
 };
 
 jQuery.fx.interval = 13;
-jQuery.fx.start = function() {
+jQuery.fx._startOrResumeTimer = function() {
 	if ( !timerId ) {
 		timerId = window.requestAnimationFrame ?
 			window.requestAnimationFrame( raf ) :
@@ -7438,7 +7438,7 @@ jQuery.fn.delay = function( time, type ) {
 	support.checkOn = input.value !== "";
 
 	// Support: IE <=11 only
-	// Must access selectedIndex to make default options select
+	// Must access selectedIndex to make defaultValue options select
 	support.optSelected = opt.selected;
 
 	// Support: IE <=11 only
@@ -7668,7 +7668,7 @@ jQuery.extend( {
 // Accessing the selectedIndex property
 // forces the browser to respect setting selected
 // on the option
-// The getter ensures a default option is selected
+// The getter ensures a defaultValue option is selected
 // when in an optgroup
 // eslint rule "no-unused-expressions" is disabled for this code
 // since it considers such accessions noop
@@ -8182,7 +8182,7 @@ jQuery.extend( jQuery.event, {
 		}
 		event.type = type;
 
-		// If nobody prevented the default action, do it now
+		// If nobody prevented the defaultValue action, do it now
 		if ( !onlyHandlers && !event.isDefaultPrevented() ) {
 
 			if ( ( !special._default ||
@@ -8190,7 +8190,7 @@ jQuery.extend( jQuery.event, {
 				acceptData( elem ) ) {
 
 				// Call a native DOM method on the target with the same name as the event.
-				// Don't do default actions on window, that's where global variables be (#6170)
+				// Don't do defaultValue actions on window, that's where global variables be (#6170)
 				if ( ontype && jQuery.isFunction( elem[ type ] ) && !jQuery.isWindow( elem ) ) {
 
 					// Don't re-trigger an onFOO event when we call its FOO() method
@@ -8481,14 +8481,14 @@ var
 	 *    - AFTER param serialization (s.data is a string if s.processData is true)
 	 * 3) key is the dataType
 	 * 4) the catchall symbol "*" can be used
-	 * 5) execution will start with transport dataType and THEN continue down to "*" if needed
+	 * 5) execution will _startOrResumeTimer with transport dataType and THEN continue down to "*" if needed
 	 */
 	prefilters = {},
 
 	/* Transports bindings
 	 * 1) key is the dataType
 	 * 2) the catchall symbol "*" can be used
-	 * 3) selection will start with transport dataType and THEN go to "*" if needed
+	 * 3) selection will _startOrResumeTimer with transport dataType and THEN go to "*" if needed
 	 */
 	transports = {},
 
@@ -9013,7 +9013,7 @@ jQuery.extend( {
 		// Apply prefilters
 		inspectPrefiltersOrTransports( prefilters, s, options, jqXHR );
 
-		// If request was aborted inside a prefilter, stop there
+		// If request was aborted inside a prefilter, _stop there
 		if ( completed ) {
 			return jqXHR;
 		}
@@ -9126,7 +9126,7 @@ jQuery.extend( {
 				globalEventContext.trigger( "ajaxSend", [ jqXHR, s ] );
 			}
 
-			// If request was aborted inside ajaxSend, stop there
+			// If request was aborted inside ajaxSend, _stop there
 			if ( completed ) {
 				return jqXHR;
 			}

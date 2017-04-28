@@ -14,11 +14,14 @@ class UserError extends Error {
 
 function init() {
     timerBlock.init();
-    pomodoroSettingsBlock.init();
+    settingsBlock.init();
     notificationBlock.init();
 
     window.onerror = function (msg, url, lineNo, columnNo, error) {
-        notificationBlock.alertPlace.setNotification(notificationBlock.USER_ERROR_HAPPENED_ALERT, error.message);
+        if (error instanceof UserError)
+        {
+            notificationBlock.alertPlace.setNotification(notificationBlock.USER_ERROR_HAPPENED_ALERT, error.message);
+        }
     }
 }
 

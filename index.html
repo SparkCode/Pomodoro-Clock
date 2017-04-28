@@ -5,10 +5,10 @@
     <title>Title</title>
     <script src="js/jquery-3.1.1.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="js/custom/Alarm.js"></script>
     <script src="js/custom/Timer.js"></script>
+    <script src="js/custom/TimerSettings.js"></script>
     <script src="js/custom/notificationBlock.js"></script>
-    <script src="js/custom/pomodoroSettingsBlock.js"></script>
+    <script src="js/custom/settingsBlock.js"></script>
     <script src="js/custom/timerBlock.js"></script>
     <script src="js/custom/customScripts.js"></script>
 
@@ -18,7 +18,7 @@
 <body>
 <div class="container-fluid">
     <div class="jumbotron">
-        <h1 style="font-size: 40px">The Pomodoro Clock</h1>
+        <h1>The Pomodoro Clock</h1>
         <hr>
 
         <div id="alert-place">
@@ -37,11 +37,11 @@
                         <div class="col-xs-5">
                             <div class="input-group adjuster" >
                                 <span class="input-group-btn">
-                                    <a class="btn btn-default" type="button" id="session-incrementer">+</a>
+                                    <a class="btn btn-default" type="button" id="session-incrementer" data-value="1">+</a>
                                 </span>
-                                <input class="form-control" value="30" id="session-time-amount">
+                                <input class="form-control" value="30" min="20" max="99" name="Session" id="session-time-amount">
                                 <span class="input-group-btn">
-                                    <a class="btn btn-default" type="button" id="session-decrementer">-</a>
+                                    <a class="btn btn-default" type="button" id="session-decrementer" data-value="-1">-</a>
                                 </span>
                             </div>
                         </div>
@@ -53,35 +53,34 @@
                         <div class="col-xs-5">
                             <div class="input-group adjuster">
                                 <span class="input-group-btn">
-                                    <a class="btn btn-default" type="button" id="break-incrementer">+</a>
+                                    <a class="btn btn-default" type="button" id="break-incrementer" data-value="1">+</a>
                                 </span>
-                                <input class="form-control" value="5" id="break-time-amount">
+                                <input class="form-control" value="5" min="2" max="20" name="Break" id="break-time-amount">
                                 <span class="input-group-btn">
-                                    <a class="btn btn-default" type="button" id="break-decrementer">-</a>
+                                    <a class="btn btn-default" type="button" id="break-decrementer" data-value="-1">-</a>
                                 </span>
                             </div>
                         </div>
                 </div>
             </div>
             <div class="row">
-                <a  class="btn btn-success text-right" type="button" id="pomodoro-starter">Let's go</a>
+                <a  class="btn btn-success" type="button" id="pomodoro-starter">Let's go</a>
             </div>
         </div>
         <hr>
         <div class="row" id="timer-block">
 
-            <h2 id="alarm-name" style=" display: inline-block;">Session</h2>
+            <h2 id="alarm-name" class="inline">Session</h2>
 
-            <h3 id="alarm-duration" style=" display: inline-block;">00:30:30</h3>
+            <h3 id="alarm-duration" class="inline">00:30:30</h3>
 
             <div class="row text-center">
                 <div class="col-xs-9 col-sm-10">
-                    <div class="progress" style=" height: 30px;">
+                    <div class="progress">
                         <p class="progress-bar-text" >Remaining: <span id="remaining-time">00:30:30</span></p>
-                        <div class="progress-bar" style="width: 0%; height: 30px;"></div>
+                        <div class="progress-bar"></div>
                     </div>
                 </div>
-
                 <div class="col-xs-3 col-sm-2">
                     <a type="button" class="btn btn-default" id="pause-or-start-button">PAUSE</a>
                 </div>

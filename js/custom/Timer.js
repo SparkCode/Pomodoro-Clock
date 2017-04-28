@@ -1,65 +1,37 @@
-'use strict';
-
 class Timer {
-    constructor(element, name) {
-        this.element = element;
+    constructor(duration, name) {
+        this.overallDuration = duration;
         this.name = name;
+        this.setInitialPosition();
     }
 
-    getElementValue() {
-        return $(this.element).val();
+    _stop() {
+        clearTimeout(this.updaterFunctionId);
+        clearTimeout(this.overallTimerId);
     }
 
-    setElementValue(value) {
-        $(this.element).val(value);
-    }
-}
-
-
-class ValidatedTimer extends Timer {
-    constructor(element, name, min, max, _default) {
-        super(element, name);
-        this.min = min;
-        this.max = max;
-        this.default = _default;
-        this.validateValueLength();
+    setInitialPosition() {
+        this._stop();
+        this._remainingDurationAfterLastPause = this.overallDuration;
     }
 
-    setValue(value) {
-        this.validateValue(value);
-        this.setElementValue(value);
-
+    setAlarm(finishFunction, updaterFunction, updaterFunctionFrequency) { //todo как отсчитывать время по-другому
+        this.startTime = new Date();
+        this.overallTimerId = setTimeout(() => {
+            this.setInitialPosition();
+            finishFunction();
+        }, this._remainingDurationAfterLastPause);
+        updaterFunction();
+        this.updaterFunctionId = setInterval(updaterFunction, updaterFunctionFrequency);
     }
 
-    changeValue(diff) {
-        let curr = this.getValue();
-        this.setValue(+curr + diff);
+    pauseAlarm() {
+        this._remainingDurationAfterLastPause = this.getRemaining();
+        this._stop();
     }
 
-    getValue() {
-        let value = +this.getElementValue();
-        this.validateValue(value);
-        return value;
-    }
-
-    validateValueLength() {
-        this.element.onkeyup = () => {
-            let val = this.getElementValue();
-            val.length > 2 && this.setElementValue(val.slice(0, 2));
-        }
-    }
-
-    validateValue(value) {
-        value = +value;
-        let isValid = value && value >= this.min && value <= this.max;
-        if (!isValid)
-        {
-            this.setElementValue(this.default);
-            throw new UserError("The " + this.name + " should be a number between " + this.min + " and " + this.max);
-        }
+    getRemaining() {
+        return this.startTime.getTime()  + this._remainingDurationAfterLastPause - new Date().getTime()
     }
 }
-
-
-
 
