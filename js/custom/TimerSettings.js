@@ -31,7 +31,7 @@ class ValidatedTimerSettings extends TimerSettings {
 
     changeElementValue(diff) {
         let curr = this.getElementValue();
-        this.setElementValue(+curr + diff);
+        this.setElementValue(+curr + +diff);
     }
 
     getElementValue() {
