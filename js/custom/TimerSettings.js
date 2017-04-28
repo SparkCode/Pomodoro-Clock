@@ -42,7 +42,7 @@ class ValidatedTimerSettings extends TimerSettings {
 
     _setMaxElementValueLength() {
         this.element.onkeyup = () => {
-            let val = this.getElementValue();
+            let val = super.getElementValue();
             val.length > this.maxLength && this.setElementValue(val.slice(0, this.maxLength));
         }
     }
