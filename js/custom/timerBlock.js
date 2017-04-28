@@ -1,7 +1,7 @@
 'use strict';
 
 let timerBlock = {
-    init: function () {
+    init() {
         this.element = $("#timer-block")[0];
         this.progressBar.init();
         this.alarmNameLabel.init();
@@ -10,13 +10,13 @@ let timerBlock = {
         this.pauseOrStartButton.init();
     },
 
-    setVisible : function () {
+    setVisible() {
         this.element.style.visibility = "visible";
     }
 };
 
 timerBlock.pomodoroWorker = { //todo вынести отсюда?
-    init: function (sessionAlarm, breakAlarm) {
+    init(sessionAlarm, breakAlarm) {
         !this.sessionAlarm || this.sessionAlarm.stop();
         !this.breakAlarm || this.breakAlarm.stop();
 
@@ -25,11 +25,11 @@ timerBlock.pomodoroWorker = { //todo вынести отсюда?
         this.state = this.BREAK;
     },
 
-    start: function () { //todo - rename
+    start() { //todo - rename
         this.getCurrentAlarm().setAlarm(this.prepare.bind(this), this.updaterHandler.bind(this), 1000);
     },
 
-    prepare: function () { //todo - rename
+    prepare() { //todo - rename
         timerBlock.pauseOrStartButton.state = timerBlock.pauseOrStartButton.WORKING;
 
         if (this.state === this.SESSION)
@@ -49,12 +49,12 @@ timerBlock.pomodoroWorker = { //todo вынести отсюда?
         this.start();
     },
 
-    pause: function () {
+    pause() {
         this.getCurrentAlarm().pauseAlarm();
         notificationBlock.alertPlace.setNotification(notificationBlock.TIMER_STOPPED_ALERT);
     },
 
-    resume: function () {
+    resume() {
         if (this.state === this.SESSION)
             notificationBlock.alertPlace.setNotification(notificationBlock.SESSION_STARTED_ALERT);
         else
@@ -62,14 +62,14 @@ timerBlock.pomodoroWorker = { //todo вынести отсюда?
         this.start();
     },
 
-    updaterHandler: function () {
+    updaterHandler() {
         let alarm = this.getCurrentAlarm();
         let percentage = 100 - alarm.getRemaining()* 100 / alarm.overallDuration;
         timerBlock.progressBar.setValue(percentage);
         timerBlock.remainingTimeLabel.setValue(alarm.getRemaining());
     },
 
-    getCurrentAlarm : function () {
+    getCurrentAlarm() {
         return this.state ===  this.SESSION ? this.sessionAlarm : this.breakAlarm;
     },
 
@@ -161,3 +161,4 @@ timerBlock.pauseOrStartButton = {
     PAUSE: 1,
     WORKING: 2
 };
+

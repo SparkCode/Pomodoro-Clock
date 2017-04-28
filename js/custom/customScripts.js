@@ -2,15 +2,14 @@
 
 $(document).ready(init);
 
-function UserError(message = 'Default Message') {
-    this.name = "UserError";
-    this.message = message;
-    this.stack = new Error().stack;
+class UserError extends Error {
+    constructor(message = 'Default Message') {
+        super();
+        this.name = "UserError";
+        this.message = message;
+        this.stack = new Error().stack;
+    }
 }
-
-UserError.prototype = Object.create(Error.prototype);
-UserError.prototype.constructor = UserError;
-
 
 
 function init() {
